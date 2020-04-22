@@ -1,12 +1,22 @@
 import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
+import AllTrips from "./components/AllTrips";
+import Calculator from "./components/Calculator";
+import Countries from "./components/Countries";
+import VisaInfo from "./components/VisaInfo";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className='App'>
-      <NavBar />
-      <h1>Schengen Calc</h1>
+      <Router>
+        <NavBar />
+        <Route exact path='/' component={AllTrips} />
+        <Route exact path='/calculator' component={Calculator} />
+        <Route exact path='/visa-info' component={VisaInfo} />
+        <Route exact path='/countries/:country' component={Countries} />
+      </Router>
     </div>
   );
 }
