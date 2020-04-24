@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
+import LogIn from "./components/LogIn";
 import AllTrips from "./components/AllTrips";
 import Calculator from "./components/Calculator";
 import Countries from "./components/Countries";
@@ -12,7 +13,8 @@ function App() {
     <div className='App'>
       <Router>
         <NavBar />
-        <Route exact path='/' component={AllTrips} />
+        <Route exact path='/' component={LogIn} />
+        <Route exact path='/all-trips' component={AllTrips} />
         <Route exact path='/calculator' component={Calculator} />
         <Route exact path='/visa-info' component={VisaInfo} />
         <Route exact path='/countries/:country' component={Countries} />
