@@ -21,8 +21,8 @@ const NavBar = () => {
             <NavDropdown.Item href='#'>Germany</NavDropdown.Item>
             <NavDropdown.Item href='#'>France</NavDropdown.Item>
             <NavDropdown.Item href='#'>Etc</NavDropdown.Item>
-            <Nav.Link mr-sm-2>Log Out</Nav.Link>
           </NavDropdown>
+          <Nav.Link>Log Out</Nav.Link>
         </Nav>
       </Navbar>
     </div>
