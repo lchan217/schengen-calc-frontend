@@ -19,7 +19,7 @@ class NewUser extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-    fetch("http://localhost:3001/api/users", {
+    fetch("http://localhost:3001/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,6 @@ class NewUser extends Component {
       },
       body: JSON.stringify(body),
     }).then((resp) => resp.json());
-
     this.props.history.push("/all-trips");
   };
 
