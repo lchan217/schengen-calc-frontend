@@ -27,6 +27,8 @@ class NewUser extends Component {
       },
       body: JSON.stringify(body),
     }).then((resp) => resp.json());
+
+    this.props.history.push("/all-trips");
   };
 
   render() {
