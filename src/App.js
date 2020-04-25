@@ -3,6 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import LogIn from "./components/LogIn";
 import AllTrips from "./components/AllTrips";
+import NewUser from "./components/NewUser";
 import Calculator from "./components/Calculator";
 import Countries from "./components/Countries";
 import VisaInfo from "./components/VisaInfo";
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <NavBar />
         <Route exact path='/' component={LogIn} />
+        <Route exact path='/signup' component={NewUser} />
         <Route exact path='/all-trips' component={AllTrips} />
         <Route exact path='/calculator' component={Calculator} />
         <Route exact path='/visa-info' component={VisaInfo} />
