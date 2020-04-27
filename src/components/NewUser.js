@@ -15,18 +15,21 @@ class NewUser extends Component {
   };
 
   handleSubmit = (event) => {
-    const body = {
-      email: this.state.email,
-      password: this.state.password,
-    };
     fetch("http://localhost:3001/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(body),
-    }).then((resp) => resp.json());
+      body: JSON.stringify({
+        user: {
+          email: this.state.email,
+          password: this.state.password,
+        },
+      }),
+    })
+      .then((r) => r.json())
+      .then(console.log);
     this.props.history.push("/all-trips");
   };
 
