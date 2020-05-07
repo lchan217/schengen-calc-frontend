@@ -51,7 +51,7 @@ class NewUser extends Component {
   };
 
   render() {
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, showErrors } = this;
     return (
       <Container className='p-5'>
         <h1>Sign Up!</h1>
@@ -79,7 +79,7 @@ class NewUser extends Component {
           </Button>
         </Form>
         <br />
-        {this.showErrors()}
+        {showErrors()}
       </Container>
     );
   }
