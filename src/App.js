@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar/NavBar.js";
 import LogIn from "./components/LogIn";
 import AllTrips from "./components/AllTrips";
-import NewUser from "./components/NewUser";
+import NewUser from "./components/NewUser/NewUser";
 import Calculator from "./components/Calculator";
 import Countries from "./components/Countries";
 import VisaInfo from "./components/VisaInfo";

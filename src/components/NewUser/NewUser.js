@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
+import "./NewUser.css";
 
 class NewUser extends Component {
   constructor() {
@@ -7,6 +8,7 @@ class NewUser extends Component {
     this.state = {
       email: "",
       password: "",
+      error: "",
     };
   }
 
@@ -15,6 +17,7 @@ class NewUser extends Component {
   };
 
   handleSubmit = (event) => {
+    event.preventDefault();
     fetch("http://localhost:3001/api/v1/users", {
       method: "POST",
       headers: {
@@ -28,16 +31,22 @@ class NewUser extends Component {
         },
       }),
     })
-      .then((r) => r.json())
-      .then(console.log);
-    this.props.history.push("/all-trips");
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.error) {
+          this.setState({ error: response.error });
+        } else {
+          this.props.history.push("/all-trips");
+        }
+      })
+      .catch((error) => console.log("api errors:", error));
   };
 
   render() {
     const { handleChange, handleSubmit } = this;
 
     return (
-      <div>
+      <div className='sign-up-form'>
         <h1>Sign Up!</h1>
         <Form className='w-50 p-5' onSubmit={handleSubmit}>
           <Form.Group>
@@ -62,6 +71,7 @@ class NewUser extends Component {
             Submit
           </Button>
         </Form>
+        {this.state.error}
       </div>
     );
   }
