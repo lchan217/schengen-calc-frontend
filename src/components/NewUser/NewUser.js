@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Alert } from "react-bootstrap";
 import "./NewUser.css";
 
 class NewUser extends Component {
@@ -42,13 +42,20 @@ class NewUser extends Component {
       .catch((error) => console.log("api errors:", error));
   };
 
+  showErrors = () => {
+    if (this.state.error) {
+      return this.state.error.map((error) => {
+        return <Alert variant='danger'>{error}</Alert>;
+      });
+    }
+  };
+
   render() {
     const { handleChange, handleSubmit } = this;
-
     return (
-      <div className='sign-up-form'>
+      <Container className='p-5'>
         <h1>Sign Up!</h1>
-        <Form className='w-50 p-5' onSubmit={handleSubmit}>
+        <Form className='w-50' onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -61,7 +68,7 @@ class NewUser extends Component {
           <Form.Group>
             <Form.Label>Password</Form.Label>
             <Form.Control
-              onChange={this.handleChange}
+              onChange={handleChange}
               type='password'
               name='password'
               placeholder='Password'
@@ -71,8 +78,9 @@ class NewUser extends Component {
             Submit
           </Button>
         </Form>
-        {this.state.error}
-      </div>
+        <br />
+        {this.showErrors()}
+      </Container>
     );
   }
 }
