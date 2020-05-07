@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class LogIn extends Component {
@@ -8,6 +8,7 @@ class LogIn extends Component {
     this.state = {
       email: "",
       password: "",
+      errors: "",
     };
   }
 
@@ -16,6 +17,7 @@ class LogIn extends Component {
   };
 
   handleSubmit = (event) => {
+    event.preventDefault();
     fetch("http://localhost:3001/api/v1/login", {
       method: "POST",
       headers: {
@@ -29,16 +31,30 @@ class LogIn extends Component {
         },
       }),
     })
-      .then((r) => r.json())
-      .then(console.log);
-    this.props.history.push("/all-trips");
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.error) {
+          this.setState({ errors: response.error });
+          console.log(response);
+        } else {
+          this.props.history.push("/all-trips");
+        }
+      })
+      .catch((error) => console.log("api errors:", error));
+  };
+
+  showErrors = () => {
+    if (this.state.errors) {
+      return <Alert variant='danger'>{this.state.errors}</Alert>;
+    }
   };
 
   render() {
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, showErrors } = this;
     return (
-      <div>
-        <Form className='w-50 p-5' onSubmit={handleSubmit}>
+      <Container className='p-5'>
+        <h1>Sign In</h1>
+        <Form className='w-50' onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -66,7 +82,9 @@ class LogIn extends Component {
           <br />
           Log In With Authentication
         </Form>
-      </div>
+        <br />
+        {showErrors()}
+      </Container>
     );
   }
 }
