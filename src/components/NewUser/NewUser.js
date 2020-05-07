@@ -8,7 +8,7 @@ class NewUser extends Component {
     this.state = {
       email: "",
       password: "",
-      error: "",
+      errors: "",
     };
   }
 
@@ -34,7 +34,7 @@ class NewUser extends Component {
       .then((response) => response.json())
       .then((response) => {
         if (response.error) {
-          this.setState({ error: response.error });
+          this.setState({ errors: response.error });
         } else {
           this.props.history.push("/all-trips");
         }
@@ -43,8 +43,8 @@ class NewUser extends Component {
   };
 
   showErrors = () => {
-    if (this.state.error) {
-      return this.state.error.map((error) => {
+    if (this.state.errors) {
+      return this.state.errors.map((error) => {
         return <Alert variant='danger'>{error}</Alert>;
       });
     }
@@ -54,7 +54,7 @@ class NewUser extends Component {
     const { handleChange, handleSubmit, showErrors } = this;
     return (
       <Container className='p-5'>
-        <h1>Sign Up!</h1>
+        <h1>Sign Up</h1>
         <Form className='w-50' onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label>Email</Form.Label>
