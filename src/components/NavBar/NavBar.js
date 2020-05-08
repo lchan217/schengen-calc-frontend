@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import LogOut from "../LogOut";
 import "./NavBar.css";
 
 const NavBar = () => {
@@ -25,7 +26,9 @@ const NavBar = () => {
               <Dropdown.Item>Etc</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Nav.Link className='text-white right'>Log Out</Nav.Link>
+          <Nav.Link className='text-white right'>
+            <LogOut />
+          </Nav.Link>
         </Nav>
       </Navbar>
     </div>
