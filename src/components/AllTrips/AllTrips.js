@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Container, Row, Col } from "react-bootstrap";
 import "./AllTrips.css";
 
 class AllTrips extends Component {
   constructor() {
     super();
     this.state = {
-      trips: [],
+      past: [],
+      future: [],
     };
   }
 
@@ -22,22 +23,56 @@ class AllTrips extends Component {
         },
       })
         .then((response) => response.json())
-        .then((response) => this.setState({ trips: response }));
+        .then((response) =>
+          this.setState({ past: response.past, future: response.future })
+        );
     }
   }
   render() {
     return (
       <div className='all-trips-container'>
-        <h1 className='text-center'>All Trips</h1>
-        <ListGroup>
-          {this.state.trips.map((trip) => {
-            return (
-              <ListGroup.Item className='w-50'>
-                {trip.location} - {trip.entry} - {trip.exit}{" "}
-              </ListGroup.Item>
-            );
-          })}
-        </ListGroup>
+        <Container>
+          <Row>
+            <Col>
+              <h1 className='text-center'>Past Trips</h1>
+              {this.state.past.map((trip) => {
+                return (
+                  <Row>
+                    <ListGroup className='w-100 p-1'>
+                      <ListGroup.Item variant='secondary'>
+                        <h5>{trip.location}</h5>
+                        <div>
+                          <b>Date of Entry:</b> {trip.entry}
+                          <br />
+                          <b>Date of Exit:</b> {trip.exit}
+                        </div>
+                      </ListGroup.Item>
+                    </ListGroup>
+                  </Row>
+                );
+              })}
+            </Col>
+            <Col>
+              <h1 className='text-center'>Future Trips</h1>
+              {this.state.future.map((trip) => {
+                return (
+                  <Row>
+                    <ListGroup className='w-100 p-1'>
+                      <ListGroup.Item>
+                        <h5>{trip.location}</h5>
+                        <div>
+                          <b>Date of Entry:</b> {trip.entry}
+                          <br />
+                          <b>Date of Exit:</b> {trip.exit}
+                        </div>
+                      </ListGroup.Item>
+                    </ListGroup>
+                  </Row>
+                );
+              })}
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
