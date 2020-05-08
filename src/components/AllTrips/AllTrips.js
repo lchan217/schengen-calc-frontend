@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { ListGroup } from "react-bootstrap";
+import "./AllTrips.css";
 
 class AllTrips extends Component {
   constructor() {
@@ -25,8 +27,17 @@ class AllTrips extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>All Trips</h1>
+      <div className='all-trips-container'>
+        <h1 className='text-center'>All Trips</h1>
+        <ListGroup>
+          {this.state.trips.map((trip) => {
+            return (
+              <ListGroup.Item className='w-50'>
+                {trip.location} - {trip.entry} - {trip.exit}{" "}
+              </ListGroup.Item>
+            );
+          })}
+        </ListGroup>
       </div>
     );
   }
