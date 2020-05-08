@@ -35,7 +35,6 @@ class LogIn extends Component {
       .then((response) => {
         if (response.error) {
           this.setState({ errors: response.error });
-          console.log(response);
         } else {
           this.props.history.push("/all-trips");
         }
