@@ -36,6 +36,7 @@ class LogIn extends Component {
         if (response.error) {
           this.setState({ errors: response.error });
         } else {
+          localStorage.setItem("token", response.jwt);
           this.props.history.push("/all-trips");
         }
       })
