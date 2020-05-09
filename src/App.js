@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar/NavBar.js";
 import LogIn from "./components/LogIn";
 import AllTrips from "./components/AllTrips/AllTrips";
-import NewTrip from "./components/NewTrip";
+import NewTrip from "./components/NewTrip/NewTrip";
 import NewUser from "./components/NewUser/NewUser";
 import Calculator from "./components/Calculator";
 import Countries from "./components/Countries";
