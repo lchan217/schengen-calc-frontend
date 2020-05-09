@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./AllTrips.css";
 import TripItem from "./TripItem";
 
@@ -33,6 +34,10 @@ class AllTrips extends Component {
     return (
       <div className='all-trips-container'>
         <Container>
+          <Button as={Link} to='/new-trip' className='float-right'>
+            +
+          </Button>
+          <br />
           <Row>
             <Col>
               <h1 className='text-center'>Past Trips</h1>

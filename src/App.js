@@ -3,6 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar/NavBar.js";
 import LogIn from "./components/LogIn";
 import AllTrips from "./components/AllTrips/AllTrips";
+import NewTrip from "./components/NewTrip";
 import NewUser from "./components/NewUser/NewUser";
 import Calculator from "./components/Calculator";
 import Countries from "./components/Countries";
@@ -17,6 +18,7 @@ function App() {
         <Route exact path='/' component={LogIn} />
         <Route exact path='/signup' component={NewUser} />
         <Route exact path='/all-trips' component={AllTrips} />
+        <Route exact path='/new-trip' component={NewTrip} />
         <Route exact path='/calculator' component={Calculator} />
         <Route exact path='/visa-info' component={VisaInfo} />
         <Route exact path='/countries/:country' component={Countries} />
