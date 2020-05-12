@@ -16,11 +16,38 @@ class NewTrip extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const body = {
+      location: this.state.destination,
+      entry: this.state.entry,
+      exit: this.state.exit,
+    };
+
+    let token = localStorage.getItem("token");
+
+    if (token) {
+      fetch("http://localhost:3001/api/v1/trips", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      })
+        .then((response) => response.json())
+        .then(console.log)
+        .catch((error) => console.log(error));
+    }
+  };
+
   render() {
-    const { handleChange } = this;
+    const { handleChange, handleSubmit } = this;
     return (
       <Container className='new-trip-container'>
-        <Form className='p-4'>
+        <Form className='p-4' onSubmit={handleSubmit}>
           <Form.Group controlId='destination'>
             <Form.Label>Destination</Form.Label>
             <Form.Control
