@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Container, Button, Alert } from "react-bootstrap";
 import "./NewTrip.css";
 
 class NewTrip extends Component {
@@ -9,6 +9,7 @@ class NewTrip extends Component {
       destination: "",
       entry: "",
       exit: "",
+      errors: "",
     };
   }
 
@@ -38,13 +39,27 @@ class NewTrip extends Component {
         body: JSON.stringify(body),
       })
         .then((response) => response.json())
-        .then(console.log)
+        .then((response) => {
+          if (response.error) {
+            this.setState({ errors: response.error });
+          } else {
+            // this.props.history.push("/all-trips");
+          }
+        })
         .catch((error) => console.log(error));
     }
   };
 
+  showErrors = () => {
+    if (this.state.errors) {
+      return this.state.errors.map((error) => {
+        return <Alert variant='danger'>{error}</Alert>;
+      });
+    }
+  };
+
   render() {
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, showErrors } = this;
     return (
       <Container className='new-trip-container'>
         <Form className='p-4' onSubmit={handleSubmit}>
@@ -81,6 +96,7 @@ class NewTrip extends Component {
           <br />
           <Button type='submit'>Submit</Button>
         </Form>
+        {showErrors()}
       </Container>
     );
   }
