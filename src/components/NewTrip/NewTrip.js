@@ -43,7 +43,8 @@ class NewTrip extends Component {
           if (response.error) {
             this.setState({ errors: response.error });
           } else {
-            // this.props.history.push("/all-trips");
+            console.log(response);
+            this.props.history.push("/all-trips");
           }
         })
         .catch((error) => console.log(error));
