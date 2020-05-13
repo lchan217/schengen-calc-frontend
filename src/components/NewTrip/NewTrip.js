@@ -13,7 +13,7 @@ class NewTrip extends Component {
   constructor() {
     super();
     this.state = {
-      destination: "",
+      destination: "Pick a destination",
       entry: "",
       exit: "",
       errors: "",
@@ -22,6 +22,7 @@ class NewTrip extends Component {
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.id });
   };
 
   handleSubmit = (event) => {
@@ -67,7 +68,12 @@ class NewTrip extends Component {
   };
 
   render() {
-    const { handleChange, handleSubmit, showErrors } = this;
+    const {
+      handleChange,
+
+      handleSubmit,
+      showErrors,
+    } = this;
 
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
       <Button
@@ -144,18 +150,20 @@ class NewTrip extends Component {
       <Container className='new-trip-container'>
         <Form className='p-4' onSubmit={handleSubmit}>
           <Form.Group controlId='entry'>
+            <Form.Label>Destination</Form.Label>
             <Dropdown>
-              <Dropdown.Toggle as={CustomToggle}>Destination</Dropdown.Toggle>
+              <Dropdown.Toggle as={CustomToggle}>
+                {this.state.destination}
+              </Dropdown.Toggle>
 
               <Dropdown.Menu as={CustomMenu}>
                 {countries.map((country, i) => {
                   return (
                     <Dropdown.Item
                       onClick={handleChange}
-                      type='text'
                       name='destination'
-                      value={country}
                       eventKey={i}
+                      id={country}
                     >
                       {country}
                     </Dropdown.Item>
