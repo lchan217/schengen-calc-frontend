@@ -1,10 +1,10 @@
 import React, { Component, useState } from "react";
 import {
   Form,
+  FormControl,
   Container,
   Button,
   Alert,
-  FormControl,
   Dropdown,
 } from "react-bootstrap";
 import "./NewTrip.css";
@@ -69,38 +69,8 @@ class NewTrip extends Component {
   render() {
     const { handleChange, handleSubmit, showErrors } = this;
 
-    const countries = [
-      "Austria",
-      "Belgium",
-      "Czech Republic",
-      "Denmark",
-      "Estonia",
-      "Finland",
-      "France",
-      "Germany",
-      "Greece",
-      "Hungary",
-      "Iceland",
-      "Italy",
-      "Latvia",
-      "Liechtenstein",
-      "Lithuania",
-      "Luxembourg",
-      "Malta",
-      "Netherlands",
-      "Norway",
-      "Poland",
-      "Portugal",
-      "Slovakia",
-      "Slovenia",
-      "Spain",
-      "Sweden",
-      "Switzerland",
-    ];
-
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-      <a
-        href=''
+      <Button
         ref={ref}
         onClick={(e) => {
           e.preventDefault();
@@ -109,7 +79,7 @@ class NewTrip extends Component {
       >
         {children}
         &#x25bc;
-      </a>
+      </Button>
     ));
 
     const CustomMenu = React.forwardRef(
@@ -141,20 +111,60 @@ class NewTrip extends Component {
       }
     );
 
+    const countries = [
+      "Austria",
+      "Belgium",
+      "Czech Republic",
+      "Denmark",
+      "Estonia",
+      "Finland",
+      "France",
+      "Germany",
+      "Greece",
+      "Hungary",
+      "Iceland",
+      "Italy",
+      "Latvia",
+      "Liechtenstein",
+      "Lithuania",
+      "Luxembourg",
+      "Malta",
+      "Netherlands",
+      "Norway",
+      "Poland",
+      "Portugal",
+      "Slovakia",
+      "Slovenia",
+      "Spain",
+      "Sweden",
+      "Switzerland",
+    ];
+
     return (
       <Container className='new-trip-container'>
         <Form className='p-4' onSubmit={handleSubmit}>
-          <Form.Group controlId='destination'>
+          <Form.Group controlId='entry'>
             <Dropdown>
               <Dropdown.Toggle as={CustomToggle}>Destination</Dropdown.Toggle>
 
               <Dropdown.Menu as={CustomMenu}>
                 {countries.map((country, i) => {
-                  return <Dropdown.Item eventKey={i}>{country}</Dropdown.Item>;
+                  return (
+                    <Dropdown.Item
+                      onClick={handleChange}
+                      type='text'
+                      name='destination'
+                      value={country}
+                      eventKey={i}
+                    >
+                      {country}
+                    </Dropdown.Item>
+                  );
                 })}
               </Dropdown.Menu>
             </Dropdown>
           </Form.Group>
+
           <Form.Group controlId='entry'>
             <Form.Label>Entry</Form.Label>
             <Form.Control
