@@ -1,5 +1,12 @@
-import React, { Component } from "react";
-import { Form, Container, Button, Alert } from "react-bootstrap";
+import React, { Component, useState } from "react";
+import {
+  Form,
+  Container,
+  Button,
+  Alert,
+  FormControl,
+  Dropdown,
+} from "react-bootstrap";
 import "./NewTrip.css";
 
 class NewTrip extends Component {
@@ -61,17 +68,92 @@ class NewTrip extends Component {
 
   render() {
     const { handleChange, handleSubmit, showErrors } = this;
+
+    const countries = [
+      "Austria",
+      "Belgium",
+      "Czech Republic",
+      "Denmark",
+      "Estonia",
+      "Finland",
+      "France",
+      "Germany",
+      "Greece",
+      "Hungary",
+      "Iceland",
+      "Italy",
+      "Latvia",
+      "Liechtenstein",
+      "Lithuania",
+      "Luxembourg",
+      "Malta",
+      "Netherlands",
+      "Norway",
+      "Poland",
+      "Portugal",
+      "Slovakia",
+      "Slovenia",
+      "Spain",
+      "Sweden",
+      "Switzerland",
+    ];
+
+    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+      <a
+        href=''
+        ref={ref}
+        onClick={(e) => {
+          e.preventDefault();
+          onClick(e);
+        }}
+      >
+        {children}
+        &#x25bc;
+      </a>
+    ));
+
+    const CustomMenu = React.forwardRef(
+      ({ children, style, className, "aria-labelledby": labeledBy }, ref) => {
+        const [value, setValue] = useState("");
+
+        return (
+          <div
+            ref={ref}
+            style={style}
+            className={className}
+            aria-labelledby={labeledBy}
+          >
+            <FormControl
+              autoFocus
+              className='mx-3 my-2 w-auto'
+              placeholder='Type to filter...'
+              onChange={(e) => setValue(e.target.value)}
+              value={value}
+            />
+            <ul className='list-unstyled'>
+              {React.Children.toArray(children).filter(
+                (child) =>
+                  !value || child.props.children.toLowerCase().startsWith(value)
+              )}
+            </ul>
+          </div>
+        );
+      }
+    );
+
     return (
       <Container className='new-trip-container'>
         <Form className='p-4' onSubmit={handleSubmit}>
           <Form.Group controlId='destination'>
-            <Form.Label>Destination</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              type='text'
-              name='destination'
-              placeholder='Enter destination'
-            />
+            <Dropdown>
+              <Dropdown.Toggle as={CustomToggle}>Destination</Dropdown.Toggle>
+
+              <Dropdown.Menu as={CustomMenu}>
+                {countries.map((country, i) => {
+                  return <Dropdown.Item eventKey={i}>{country}</Dropdown.Item>;
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
           </Form.Group>
           <Form.Group controlId='entry'>
             <Form.Label>Entry</Form.Label>
