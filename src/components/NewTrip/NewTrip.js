@@ -21,8 +21,11 @@ class NewTrip extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-    this.setState({ [event.target.name]: event.target.id });
+    if (event.target.value) {
+      this.setState({ [event.target.name]: event.target.value });
+    } else {
+      this.setState({ [event.target.name]: event.target.id });
+    }
   };
 
   handleSubmit = (event) => {
