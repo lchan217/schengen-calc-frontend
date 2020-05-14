@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./AllTrips.css";
 import TripItem from "./TripItem";
@@ -34,6 +34,24 @@ class AllTrips extends Component {
     return (
       <div className='all-trips-container'>
         <Container>
+          <Form classname='filter-dates-form'>
+            <Row>
+              <Col xs={3}></Col>
+              <b>Filter: </b>
+              <Col xs={3}>
+                <Form.Group controlId='entry'>
+                  <Form.Label>Date of Entry</Form.Label>
+                  <Form.Control type='date' />
+                </Form.Group>
+              </Col>
+              <Col xs={3}>
+                <Form.Group controlId='exit'>
+                  <Form.Label>Date of Exit</Form.Label>
+                  <Form.Control type='date' />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Form>
           <Button as={Link} to='/new-trip' className='float-right'>
             +
           </Button>
