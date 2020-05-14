@@ -10,6 +10,8 @@ class AllTrips extends Component {
     this.state = {
       past: [],
       future: [],
+      entry: "",
+      exit: "",
     };
   }
 
@@ -49,6 +51,16 @@ class AllTrips extends Component {
                   <Form.Label>Date of Exit</Form.Label>
                   <Form.Control type='date' />
                 </Form.Group>
+              </Col>
+              <Col>
+                <Button
+                  className='search-button'
+                  variant='primary'
+                  size='sm'
+                  type='submit'
+                >
+                  Search
+                </Button>{" "}
               </Col>
             </Row>
           </Form>
