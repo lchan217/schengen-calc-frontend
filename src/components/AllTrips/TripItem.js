@@ -27,12 +27,12 @@ class TripItem extends Component {
   render() {
     return (
       <div>
-        {this.props.trips.map((trip) => {
+        {this.props.trips.map((trip, i) => {
           this.getIcon(trip);
           let color = "";
           trip.passed ? (color = "secondary") : (color = "");
           return (
-            <Row>
+            <Row key={i}>
               <ListGroup className='w-100 p-1'>
                 <ListGroup.Item variant={color}>
                   <h5>
