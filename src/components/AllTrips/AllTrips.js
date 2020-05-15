@@ -10,7 +10,6 @@ class AllTrips extends Component {
     this.state = {
       past: [],
       future: [],
-      entry: "",
       exit: "",
     };
   }
@@ -32,26 +31,37 @@ class AllTrips extends Component {
         );
     }
   }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   render() {
+    const { handleChange, handleSubmit } = this;
     return (
       <div className='all-trips-container'>
         <Container>
-          <Form classname='filter-dates-form'>
+          <Form classname='filter-dates-form' onSubmit={handleSubmit}>
             <Row>
               <Col xs={3}></Col>
               <b>Filter: </b>
               <Col xs={3}>
-                <Form.Group controlId='entry'>
-                  <Form.Label>Date of Entry</Form.Label>
-                  <Form.Control type='date' />
-                </Form.Group>
-              </Col>
-              <Col xs={3}>
                 <Form.Group controlId='exit'>
-                  <Form.Label>Date of Exit</Form.Label>
-                  <Form.Control type='date' />
+                  <Form.Control
+                    name='exit'
+                    onChange={handleChange}
+                    type='date'
+                  />
+                  <Form.Text className='text-muted'>
+                    Based on date of exit.
+                  </Form.Text>
                 </Form.Group>
               </Col>
+
               <Col>
                 <Button
                   className='search-button'
