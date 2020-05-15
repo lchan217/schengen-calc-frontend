@@ -10,7 +10,8 @@ class AllTrips extends Component {
     this.state = {
       past: [],
       future: [],
-      exit: "",
+      beginning: "",
+      end: "",
     };
   }
 
@@ -38,6 +39,18 @@ class AllTrips extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    if (this.state.beginning && this.state.end) {
+      let filteredPastTrips = this.state.past.filter((trip) => {
+        return trip.exit > this.state.beginning && trip.exit < this.state.end;
+      });
+      let filteredFutureTrips = this.state.future.filter((trip) => {
+        return trip.exit > this.state.beginning && trip.exit < this.state.end;
+      });
+      this.setState({
+        past: filteredPastTrips,
+        future: filteredFutureTrips,
+      });
+    }
   };
 
   render() {
@@ -49,10 +62,23 @@ class AllTrips extends Component {
             <Row>
               <Col xs={3}></Col>
               <b>Filter: </b>
+
               <Col xs={3}>
-                <Form.Group controlId='exit'>
+                <Form.Group controlId='beginning'>
                   <Form.Control
-                    name='exit'
+                    name='beginning'
+                    onChange={handleChange}
+                    type='date'
+                  />
+                  <Form.Text className='text-muted'>
+                    Based on date of exit.
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+              <Col xs={3}>
+                <Form.Group controlId='end'>
+                  <Form.Control
+                    name='end'
                     onChange={handleChange}
                     type='date'
                   />
@@ -63,12 +89,7 @@ class AllTrips extends Component {
               </Col>
 
               <Col>
-                <Button
-                  className='search-button'
-                  variant='primary'
-                  size='sm'
-                  type='submit'
-                >
+                <Button variant='primary' size='sm' type='submit'>
                   Search
                 </Button>{" "}
               </Col>
