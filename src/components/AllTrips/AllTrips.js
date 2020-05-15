@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./AllTrips.css";
 import TripItem from "./TripItem";
@@ -12,6 +12,7 @@ class AllTrips extends Component {
       future: [],
       beginning: "",
       end: "",
+      errors: "",
     };
   }
 
@@ -44,11 +45,15 @@ class AllTrips extends Component {
         return trip.exit > this.state.beginning && trip.exit < this.state.end;
       });
       let filteredFutureTrips = this.state.future.filter((trip) => {
-        return trip.exit > this.state.beginning && trip.exit < this.state.end;
+        return trip.exit >= this.state.beginning && trip.exit <= this.state.end;
       });
       this.setState({
         past: filteredPastTrips,
         future: filteredFutureTrips,
+      });
+    } else {
+      this.setState({
+        errors: "Please fill out both dates",
       });
     }
   };
@@ -95,6 +100,14 @@ class AllTrips extends Component {
               </Col>
             </Row>
           </Form>
+          {this.state.errors ? (
+            <Row>
+              <Col xs={4}></Col>
+              <Col xs={5}>
+                <Alert variant='danger'>{this.state.errors}</Alert>
+              </Col>
+            </Row>
+          ) : null}
           <Button as={Link} to='/new-trip' className='float-right'>
             +
           </Button>
