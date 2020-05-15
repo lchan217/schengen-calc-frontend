@@ -10,6 +10,8 @@ class AllTrips extends Component {
     this.state = {
       past: [],
       future: [],
+      originalFuture: [],
+      originalPast: [],
       beginning: "",
       end: "",
       errors: "",
@@ -29,7 +31,12 @@ class AllTrips extends Component {
       })
         .then((response) => response.json())
         .then((response) =>
-          this.setState({ past: response.past, future: response.future })
+          this.setState({
+            past: response.past,
+            future: response.future,
+            originalPast: response.past,
+            originalFuture: response.future,
+          })
         );
     }
   }
@@ -40,7 +47,9 @@ class AllTrips extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.state.beginning && this.state.end) {
+    if (this.state.beginning > this.state.end) {
+      this.setState({ errors: "Date of exit must be before date of entry" });
+    } else if (this.state.beginning && this.state.end) {
       let filteredPastTrips = this.state.past.filter((trip) => {
         return trip.exit > this.state.beginning && trip.exit < this.state.end;
       });
@@ -58,8 +67,16 @@ class AllTrips extends Component {
     }
   };
 
+  handleClear = (event) => {
+    event.preventDefault();
+    this.setState({
+      past: this.state.originalPast,
+      future: this.state.originalFuture,
+    });
+  };
+
   render() {
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, handleClear } = this;
     return (
       <div className='all-trips-container'>
         <Container>
@@ -96,6 +113,16 @@ class AllTrips extends Component {
               <Col>
                 <Button variant='primary' size='sm' type='submit'>
                   Search
+                </Button>{" "}
+              </Col>
+              <Col>
+                <Button
+                  onClick={handleClear}
+                  variant='primary'
+                  size='sm'
+                  type='submit'
+                >
+                  Clear
                 </Button>{" "}
               </Col>
             </Row>
