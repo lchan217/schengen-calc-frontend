@@ -48,7 +48,7 @@ class AllTrips extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.beginning > this.state.end) {
-      this.setState({ errors: "Date of exit must be before date of entry" });
+      this.setState({ errors: "Date of exit must be after date of entry" });
     } else if (this.state.beginning && this.state.end) {
       let filteredPastTrips = this.state.past.filter((trip) => {
         return trip.exit > this.state.beginning && trip.exit < this.state.end;
@@ -72,7 +72,10 @@ class AllTrips extends Component {
     this.setState({
       past: this.state.originalPast,
       future: this.state.originalFuture,
+      errors: "",
     });
+    document.querySelector("input#beginning.form-control").value = "";
+    document.querySelector("input#end.form-control").value = "";
   };
 
   render() {
